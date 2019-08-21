@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/URL">
+        <android.support.v7.preference.EditTextPreference
+            android:defaultValue="Default value"
+            android:key="prefLoginURL"
+            android:selectAllOnFocus="false"
+            android:singleLine="true"
+            android:title="@string/pref_login_url" />
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:key="prefHttpMethod"
+            android:title="@string/pref_http_method"
+            android:switchTextOn="POST"
+            android:switchTextOff="GET" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/Authentication">
+        <android.support.v7.preference.EditTextPreference
+            android:defaultValue="Username"
+            android:key="prefUsername"
+            android:selectAllOnFocus="false"
+            android:singleLine="true"
+            android:title="@string/pref_login_username" />
+        <android.support.v7.preference.EditTextPreference
+            android:defaultValue="pass"
+            android:key="prefPassword"
+            android:selectAllOnFocus="false"
+            android:singleLine="true"
+            android:title="@string/pref_login_pass" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/pref_vigil_title">
+
+        <android.support.v7.preference.ListPreference
+            android:defaultValue="true"
+            android:entries="@array/pref_vigil_times"
+            android:entryValues="@array/pref_vigil_values"
+            android:key="vigilFrequency"
+            android:title="@string/pref_vigil_recur_title" />
+        <android.support.v7.preference.EditTextPreference
+            android:defaultValue="8.8.8.8"
+            android:key="pingServer"
+            android:selectAllOnFocus="false"
+            android:singleLine="true"
+            android:title="@string/pref_ping_server" />
+    </PreferenceCategory>
+</PreferenceScreen>

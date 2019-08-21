@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pref_vigil_times">
+        <item>1 min</item>
+        <item>2 mins</item>
+        <item>5 mins</item>
+        <item>10 mins</item>
+    </string-array>
+
+    <string-array name="pref_vigil_values">
+        <item>60000</item>
+        <item>120000</item>
+        <item>300000</item>
+        <item>600000</item>
+    </string-array>
+</resources>
