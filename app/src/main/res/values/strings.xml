@@ -25,4 +25,7 @@
     <string name="Authentication" translatable="false">Authentication</string>
     <string name="pref_login_pass">Password</string>
     <string name="pref_login_username">Username</string>
+    <string name="msg_srv_stp">Service has been stopped</string>
+    <string name="msg_srv_start">Service has been started</string>
+    <string name="msg_conn_att">Connection attempted with</string>
 </resources>

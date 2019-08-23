@@ -21,7 +21,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 
 /**
- * An {@link IntentService} subclass for handling asynchronous task requests in
+ * An {@link SamuraiService} subclass for handling asynchronous task requests in
  * a service on a separate handler thread.
  * <p>
  * helper methods.
@@ -110,7 +110,7 @@ public class SamuraiService extends IntentService {
 
     public void onDestroy(){
         super.onDestroy();
-        pushNotification("Service has been stopped");
+        pushNotification(getString(R.string.msg_srv_stp)); //"Service has been stopped"
     }
 
 //    Store all runtime parameters here
@@ -138,7 +138,7 @@ public class SamuraiService extends IntentService {
 //                Start the vigil
                 handleActionVigil(server, millis, url, username, password, postMethod);
 //                Let the world know
-                pushNotification("Service has been started");
+                pushNotification(getString(R.string.msg_srv_start)); //Service has been started
             }
 //        }
     }
@@ -164,7 +164,7 @@ public class SamuraiService extends IntentService {
                 //Start actions for login
                 if(login(loginUrl, username, password, method))
                     Log.i(this.toString(),"Connection attempted with "+loginUrl);
-                pushNotification("Connection attempted with "+loginUrl);
+                pushNotification(getString(R.string.msg_conn_att)+loginUrl); //Connection attempted with
             }
             trySleeping(frequency); //important to sleep after trying to login
             int spawnAtEnd = spawn;
