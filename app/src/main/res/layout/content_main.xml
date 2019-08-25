@@ -10,17 +10,15 @@
 
     <EditText
         android:id="@+id/username"
-        android:layout_width="wrap_content"
+        android:layout_width="142dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginLeft="80dp"
+        android:layout_marginStart="100dp"
         android:layout_marginTop="55dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:ems="10"
         android:hint="@string/username_hint"
         android:inputType="text"
-        android:textSize="12sp"
+        android:textSize="16sp"
         android:typeface="normal"
         app:layout_constraintEnd_toStartOf="@+id/password"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,17 +44,15 @@
 
     <EditText
         android:id="@+id/password"
-        android:layout_width="wrap_content"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="55dp"
-        android:layout_marginEnd="80dp"
-        android:layout_marginRight="80dp"
+        android:layout_marginEnd="100dp"
         android:ems="10"
         android:hint="@string/password_hint"
         android:inputType="textPassword"
-        android:textSize="12sp"
+        android:textSize="16sp"
         android:typeface="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/username"
@@ -66,11 +62,11 @@
         android:id="@+id/service"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="55dp"
         android:text="@string/service"
         android:textOff="@string/switch_off"
         android:textOn="@string/switch_on"
-        android:textSize="12sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/username" />
@@ -84,5 +80,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_samurai_logo" />
+
+    <TextView
+        android:id="@+id/connectionState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginEnd="80dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/service" />
 
 </android.support.constraint.ConstraintLayout>

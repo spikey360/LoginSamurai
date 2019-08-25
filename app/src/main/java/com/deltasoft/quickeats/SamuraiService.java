@@ -1,5 +1,6 @@
 package com.deltasoft.quickeats;
 
+import android.app.ActivityManager;
 import android.app.IntentService;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -59,11 +60,27 @@ public class SamuraiService extends IntentService {
     private static int lastNotifId;
     private static boolean stopFlag;
     private static int spawn;
+    private static boolean connectionState;
 
     public SamuraiService() {
 
         super("SamuraiService");
 
+    }
+
+    public static boolean isConnectionUp(){
+        return connectionState;
+    }
+
+    public static boolean isServiceRunning(){
+        if(spawn!=0){
+            return true;
+        }
+        return false;
+    }
+
+    private void setConnectionState(boolean up){
+        connectionState = up;
     }
 
     /**
@@ -157,9 +174,11 @@ public class SamuraiService extends IntentService {
             isReachable = pingServer(server);
             if (isReachable){
                 //Connection is reachable, sleep for some time
+                setConnectionState(true);
                 Log.i(this.toString(),"Connection is UP, sleeping "+frequency+" ms");
             }else{
                 //Connection is not reachable
+                setConnectionState(false);
                 Log.i(this.toString(),"Connection is DOWN, trying to login with "+loginUrl);
                 //Start actions for login
                 if(login(loginUrl, username, password, method))

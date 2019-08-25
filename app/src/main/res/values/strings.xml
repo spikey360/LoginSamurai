@@ -7,12 +7,9 @@
     <string name="username_hint">User Name</string>
     <string name="password_hint">pass</string>
     <string name="channelName" translatable="false">LoginSamurai</string>
-    <string name="msg_vigil_started">Samurai Service has been started</string>
-    <string name="msg_vigil_stopped">Samurai service has been stopped</string>
-    <string name="URL" translatable="false">URL</string>
+    <string name="URL" translatable="false">Login</string>
     <string name="pref_login_url">Login URL</string>
     <string name="pref_vigil_title">Vigilance</string>
-    <string name="pref_time" translatable="false">1 min</string>
     <string name="pref_vigil_recur_title">Frequency</string>
     <string name="toolbar_settings">Settings</string>
     <string name="msg_set_url">Set the login URL in Settings</string>
@@ -20,12 +17,16 @@
     <string name="pref_ping_server">Server IP to ping</string>
     <string name="msg_set_userpass">Username/Password cannot be blank</string>
     <string name="msg_maint_up" translatable="false"><![CDATA[Maintain <u>+/<p> for username+/password in login URL]]></string>
-    <string name="pref_http_method" translatable="false">HTTP method (GET-POST)</string>
+    <string name="pref_http_method">HTTP method (GET-POST)</string>
     <string name="msg_connection_attempt">A login attempt was made</string>
     <string name="Authentication" translatable="false">Authentication</string>
     <string name="pref_login_pass">Password</string>
     <string name="pref_login_username">Username</string>
     <string name="msg_srv_stp">Service has been stopped</string>
     <string name="msg_srv_start">Service has been started</string>
-    <string name="msg_conn_att">Connection attempted with</string>
+    <string name="msg_conn_att">Connection attempted with :</string>
+    <string name="connection_state_label">Connection is</string>
+    <string name="connection_state_up">Connection is UP</string>
+    <string name="connection_state_down">Connection is DOWN</string>
+    <string name="service_state_down">Service is not running</string>
 </resources>

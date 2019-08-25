@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TextView;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     Switch serviceSwitch;
     EditText userField;
     EditText passwordField;
+    TextView connectionState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +32,22 @@ public class MainActivity extends AppCompatActivity {
         //Set the preference manager
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
         //Find and set the texts
-        userField = (EditText) findViewById(R.id.username);
-        passwordField = (EditText) findViewById(R.id.password);
-
+        userField = findViewById(R.id.username);
+        passwordField = findViewById(R.id.password);
+        connectionState = findViewById(R.id.connectionState);
+        //Find if service is Running
+        if(SamuraiService.isServiceRunning()){
+            if(SamuraiService.isConnectionUp()) {
+                connectionState.setText(getString(R.string.connection_state_up));
+                userField.setEnabled(false);
+                passwordField.setEnabled(false);
+            }else{
+                connectionState.setText(getString(R.string.connection_state_down));
+            }
+        }else{
+            connectionState.setText(getString(R.string.service_state_down));
+        }
+        //TODO: Add adaptability for screen changes using ViewModel/savedInstanceState
         /*Activity for the switch*/
         //find the switch
         serviceSwitch = (Switch) findViewById(R.id.service);
@@ -40,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
         serviceSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Clear connection state
+                ((TextView)findViewById(R.id.connectionState)).setText(null);
                 if (serviceSwitch.isChecked()) {
                     //Get the username and password from the screen
                     userField.setEnabled(false);

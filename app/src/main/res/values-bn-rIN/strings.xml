@@ -6,9 +6,7 @@
     <string name="switch_on">চলুক</string>
     <string name="password_hint">পাসওয়ার্ড</string>
     <string name="username_hint">নাম</string>
-    <string name="msg_vigil_started">সার্ভিস শুরু করা হয়েছে</string>
-    <string name="msg_vigil_stopped">সার্ভিস বন্ধ করা হয়ে গেছে</string>
-    <string name="toolbar_settings">Settings</string>
+    <string name="toolbar_settings">সেটিংস</string>
     <string name="msg_set_url">লগইন URL সেট করতে হবে</string>
     <string name="msg_set_freq">কতক্ষণ অন্তর সার্ভিস চলবে, তা সেট করতে হবে</string>
     <string name="pref_login_url">লগইন URL</string>
@@ -19,4 +17,12 @@
     <string name="msg_connection_attempt">লগইন করার চেষ্টা করা হল</string>
     <string name="pref_login_username">নাম</string>
     <string name="pref_login_pass">পাসওয়ার্ড</string>
+    <string name="msg_conn_att">কানেকশন্ তৈরী করার প্রচেষ্টা করা হল :</string>
+    <string name="msg_srv_start">সার্ভিস শুরু করা হল</string>
+    <string name="msg_srv_stp">সার্ভিস বন্ধ করা হল</string>
+    <string name="pref_http_method">পদ্ধতি (POST)</string>
+    <string name="connection_state_down">ইন্টারনেট কানেকশন্ বন্ধ</string>
+    <string name="connection_state_up">ইন্টারনেট কানেকশন্ সচল</string>
+    <string name="connection_state_label">ইন্টারনেট কানেকশন্</string>
+    <string name="service_state_down">সার্ভিস এখন চলছে না</string>
 </resources>
