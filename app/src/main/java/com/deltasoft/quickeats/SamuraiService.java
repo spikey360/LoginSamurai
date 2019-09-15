@@ -1,11 +1,11 @@
 package com.deltasoft.quickeats;
 
-import android.app.ActivityManager;
 import android.app.IntentService;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.Context;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
@@ -127,7 +127,7 @@ public class SamuraiService extends IntentService {
 
     public void onDestroy(){
         super.onDestroy();
-        pushNotification(getString(R.string.msg_srv_stp)); //"Service has been stopped"
+        //pushNotification(getString(R.string.msg_srv_stp)); //"Service has been stopped"
     }
 
 //    Store all runtime parameters here
@@ -137,6 +137,7 @@ public class SamuraiService extends IntentService {
     static String username;
     static String password;
     static boolean postMethod;
+    static ConnectivityManager cm;
 
     @Override
     protected void onHandleIntent(Intent intent) {
@@ -151,11 +152,12 @@ public class SamuraiService extends IntentService {
                 username = intent.getStringExtra(EXTRA_USER);
                 password = intent.getStringExtra(EXTRA_PASS);
                 postMethod = intent.getBooleanExtra(EXTRA_METHOD, DEFAULT_METHOD_POST);
+                cm = (ConnectivityManager)this.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
             }
 //                Start the vigil
                 handleActionVigil(server, millis, url, username, password, postMethod);
 //                Let the world know
-                pushNotification(getString(R.string.msg_srv_start)); //Service has been started
+//                pushNotification(getString(R.string.msg_srv_start)); //Service has been started
             }
 //        }
     }
@@ -169,29 +171,30 @@ public class SamuraiService extends IntentService {
     private void handleActionVigil(String server, int frequency, String loginUrl, String username, String password, boolean method) {
         int spawnAtStart = spawn;
         boolean isReachable = false;
-        do {
-            //Establish a connection with the URL
-            isReachable = pingServer(server);
-            if (isReachable){
-                //Connection is reachable, sleep for some time
-                setConnectionState(true);
-                Log.i(this.toString(),"Connection is UP, sleeping "+frequency+" ms");
-            }else{
-                //Connection is not reachable
-                setConnectionState(false);
-                Log.i(this.toString(),"Connection is DOWN, trying to login with "+loginUrl);
-                //Start actions for login
-                if(login(loginUrl, username, password, method))
-                    Log.i(this.toString(),"Connection attempted with "+loginUrl);
-                pushNotification(getString(R.string.msg_conn_att)+loginUrl); //Connection attempted with
-            }
-            trySleeping(frequency); //important to sleep after trying to login
-            int spawnAtEnd = spawn;
-            //Check if the starting spawn number and current number are same
-            if(spawnAtEnd!=spawnAtStart)
-                stopSelf(); //If they are different, stop this spawn
-        }while(!stopFlag);
-
+//        do {
+        if(!stopFlag){
+        //Establish a connection with the URL
+        isReachable = pingServer(server);
+        if (isReachable) {
+            //Connection is reachable, sleep for some time
+            setConnectionState(true);
+            Log.i(this.toString(), "Connection is UP, sleeping " + frequency + " ms");
+        } else {
+            //Connection is not reachable
+            setConnectionState(false);
+            Log.i(this.toString(), "Connection is DOWN, trying to login with " + loginUrl);
+            //Start actions for login
+            if (login(loginUrl, username, password, method))
+                Log.i(this.toString(), "Connection attempted with " + loginUrl);
+            pushNotification(getString(R.string.msg_conn_att) + loginUrl); //Connection attempted with
+        }
+//            trySleeping(frequency); //important to sleep after trying to login
+        int spawnAtEnd = spawn;
+        //Check if the starting spawn number and current number are same
+        if (spawnAtEnd != spawnAtStart)
+            stopSelf(); //If they are different, stop this spawn
+//        }while(!stopFlag);
+    }
         //Stop background service after everything done
         stopSelf();
     }
@@ -240,14 +243,6 @@ public class SamuraiService extends IntentService {
             return false;
         }
         return true;
-    }
-
-    private void trySleeping(int millis){
-        try {
-            Thread.sleep(millis);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
     }
 
     private boolean loginUsingPost(String loginUrl, String username, String password){

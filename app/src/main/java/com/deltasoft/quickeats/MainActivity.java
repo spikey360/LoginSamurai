@@ -1,6 +1,9 @@
 package com.deltasoft.quickeats;
 
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     EditText userField;
     EditText passwordField;
     TextView connectionState;
+    AlarmManager alarmManager;
+    PendingIntent pendingSentinel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,11 +69,11 @@ public class MainActivity extends AppCompatActivity {
 
                     //Get the saved settings on Vigil frequency and URL
                     SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-                    String loginUrl = pref.getString(SettingsActivity.urlKey, null);
+//                    String loginUrl = pref.getString(SettingsActivity.urlKey, null);
                     String prefUser = pref.getString(SettingsActivity.usernameKey, null);
                     String prefPassword = pref.getString(SettingsActivity.passwordKey, null);
-                    boolean loginMethod = pref.getBoolean(SettingsActivity.httpMethodKey, true); //true for default POST
-                    String pingServer = pref.getString(SettingsActivity.pingServerKey, SamuraiService.DEFAULT_PING_SRV);
+//                    boolean loginMethod = pref.getBoolean(SettingsActivity.httpMethodKey, true); //true for default POST
+//                    String pingServer = pref.getString(SettingsActivity.pingServerKey, SamuraiService.DEFAULT_PING_SRV);
                     int millis = Integer.parseInt(pref.getString(SettingsActivity.freqKey, SamuraiService.DEFAULT_VIGIL));
 
                     if (userField.getText().toString().length() == 0 || passwordField.getText().toString().length() == 0) {
@@ -76,20 +81,28 @@ public class MainActivity extends AppCompatActivity {
                         passwordField.setText(prefPassword);
                     }
                     //If service is already not running, start a service
-                    SamuraiService.startActionVigil(MainActivity.this,
-                            userField.getText().toString(),
-                            passwordField.getText().toString(),
-                            prefUser,
-                            prefPassword,
-                            loginUrl,
-                            millis,
-                            pingServer,
-                            loginMethod);
+//                    SamuraiService.startActionVigil(MainActivity.this,
+//                            userField.getText().toString(),
+//                            passwordField.getText().toString(),
+//                            prefUser,
+//                            prefPassword,
+//                            loginUrl,
+//                            millis,
+//                            pingServer,
+//                            loginMethod);
+//                    Figure out the intent
+                    Intent sentinelIntent = new Intent(MainActivity.this,SamuraiSentinel.class);
+                    pendingSentinel = PendingIntent.getBroadcast(MainActivity.this,0,sentinelIntent,0);
+//                    Invoke a repeating alarm after millis
+                    alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                    alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,0,millis,pendingSentinel);
+
                 } else {
                     userField.setEnabled(true);
                     passwordField.setEnabled(true);
                     //If a service is running, stop it
-                    SamuraiService.stopVigil(MainActivity.this);
+//                    SamuraiService.stopVigil(MainActivity.this);
+                    alarmManager.cancel(pendingSentinel);
                 }
             }
         });
@@ -109,5 +122,13 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
+    }
+
+    EditText getUserField(){
+        return userField;
+    }
+
+    EditText getPasswordField(){
+        return passwordField;
     }
 }
